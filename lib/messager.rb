@@ -37,7 +37,7 @@ module Messager
     when :email: Email
     when :http:  Web
     else
-      raise URLError, "Malformed service URL: #{url}. Either this syntax is wrong or this service type is not yet implemented."
+      raise ProtocolError, "Malformed service URL: #{url}. Either this syntax is wrong or this service type is not yet implemented."
     end
   end
 
