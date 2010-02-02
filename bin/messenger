@@ -18,10 +18,14 @@ Usage:
 Where [options] are:
 EOS
 
+  # Global options
+  opt :timeout, "The number of seconds to allow for the call", :type => Integer
+
   # Email options
   opt :from, "Who the message is from (email).", :type => String
   opt :subject, "The message subject (email).", :type => String
 
+  # CLI options
   opt :silent, "Don't print anything to stdout", :default => false
   opt :verbose, "Print verbose output on success", :default => false
 end

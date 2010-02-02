@@ -3,6 +3,7 @@ $: << File.expand_path(File.dirname(__FILE__) + '/../lib')
 require 'rubygems'
 require 'ruby-debug'
 require 'messenger/errors'
+require 'system_timer'
 
 
 module Messenger
@@ -21,7 +22,9 @@ module Messenger
 
   def self.send(url, message, options={})
     service_handler = handler(url)
-    service_handler.send(url, message, options)
+    SystemTimer.timeout_after(options[:timeout] || 15) do
+      service_handler.send(url, message, options)
+    end
   end
 
 
