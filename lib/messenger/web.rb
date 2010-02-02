@@ -1,11 +1,11 @@
 require 'httparty'
 
-module Messager
+module Messenger
 
   class Web
 
     def self.send(url, body, options={})
-      HTTParty.post(url, :body => body)
+      HTTParty.post(url, options.merge(:body => body))
     end
 
   end

@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../lib/messager"
+require "#{File.dirname(__FILE__)}/../lib/messenger"
 require 'test/unit'
 require 'shoulda'
 require 'mocha'

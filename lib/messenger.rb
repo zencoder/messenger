@@ -2,10 +2,10 @@ $: << File.expand_path(File.dirname(__FILE__) + '/../lib')
 
 require 'rubygems'
 require 'ruby-debug'
-require 'messager/errors'
+require 'messenger/errors'
 
 
-module Messager
+module Messenger
 
   MESSAGER_VERSION = [0,1] unless defined?(MESSAGER_VERSION)
   APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/..') unless defined?(APP_ROOT)
@@ -42,7 +42,7 @@ module Messager
   end
 
 
-  autoload :Email, "messager/email"
-  autoload :Web, "messager/web"
+  autoload :Email, "messenger/email"
+  autoload :Web, "messenger/web"
 
 end

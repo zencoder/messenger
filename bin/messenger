@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require File.expand_path(File.dirname(__FILE__) + '/../lib/messager')
+require File.expand_path(File.dirname(__FILE__) + '/../lib/messenger')
 require 'trollop'
 
 
@@ -8,12 +8,12 @@ require 'trollop'
 #
 
 opts = Trollop::options do
-  version "Messager #{Messager.version} (c) Zencoder Inc. All rights reserved, etc."
+  version "Messenger #{Messenger.version} (c) Zencoder Inc. All rights reserved, etc."
   banner <<-EOS
-Messager makes sending messages easy.
+Messenger makes sending messages easy.
 
 Usage:
-        script/messager [options] <service> <message>
+        script/messenger [options] <service> <message>
 
 Where [options] are:
 EOS
@@ -36,7 +36,7 @@ Error: no service or message specified.
 
 Usage (--help for more):
 
-        script/messager [options] <service> <message>
+        script/messenger [options] <service> <message>
 
 EOS
   exit -1
@@ -44,7 +44,7 @@ end
 
 
 #
-# Run Messager
+# Run Messenger
 #
 
-Messager.send(ARGV[0], ARGV[1], opts)
+Messenger.send(ARGV[0], ARGV[1], opts)

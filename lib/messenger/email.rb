@@ -1,6 +1,6 @@
 require 'pony'
 
-module Messager
+module Messenger
 
   class Email
 

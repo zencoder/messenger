@@ -18,11 +18,11 @@ end
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "messager"
-    s.summary = "Messager: easy message sending"
+    s.name = "messenger"
+    s.summary = "Messenger: easy message sending"
     s.email = "brandon@zencoder.tv"
-    s.homepage = "http://github.com/zencoder/messager"
-    s.description = "Messager: easy message sending"
+    s.homepage = "http://github.com/zencoder/messenger"
+    s.description = "Messenger: easy message sending"
     s.authors = ["Brandon Arbini"]
     s.files = FileList["[A-Z]*.*", "{lib,test}/**/*"]
     s.add_dependency('pony', '>= 0.6')
