@@ -50,5 +50,10 @@ end
 #
 # Run Messenger
 #
-
-Messenger.send(ARGV[0], ARGV[1], opts)
+puts "# Sending message to #{ARGV[0]}"
+begin
+  Messenger.send(ARGV[0], ARGV[1], opts)
+  puts "# Message sent successfully"
+rescue => e
+  puts "# **Error** #{e}"
+end
