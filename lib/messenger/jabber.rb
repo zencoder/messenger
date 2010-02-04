@@ -14,7 +14,7 @@ module Messenger
         sleep 1
       end
       status = jabber.subscribed_to?(recipient)
-      [status, status ? nil : "Not authorized"]
+      [status, status ? nil : "Not yet authorized"]
     end
 
   end

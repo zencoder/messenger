@@ -32,6 +32,7 @@ begin
     s.add_dependency('SystemTimer', '>=1.1.3')
     s.add_dependency('xmpp4r', '=0.5')
     s.add_dependency('xmpp4r-simple', '=0.8.8')
+    s.add_dependency('json_pure', '>=1.2.0')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler."
