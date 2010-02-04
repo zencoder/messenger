@@ -30,15 +30,17 @@ module Messenger
 
   def self.protocol(url)
     case url
-    when /^mailto/: :email
-    when /^http/:   :http
+    when /^mailto/:   :email
+    when /^http/:     :http
+    when /^campfire/: :campfire
     end
   end
 
   def self.handler(url)
     case protocol(url)
-    when :email: Email
-    when :http:  Web
+    when :email:    Email
+    when :http:     Web
+    when :campfire: Campfire
     else
       raise ProtocolError, "Malformed service URL: #{url}. Either this syntax is wrong or this service type is not yet implemented."
     end
@@ -47,5 +49,6 @@ module Messenger
 
   autoload :Email, "messenger/email"
   autoload :Web, "messenger/web"
+  autoload :Campfire, "messenger/campfire"
 
 end

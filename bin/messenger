@@ -56,4 +56,5 @@ begin
   puts "# Message sent successfully"
 rescue => e
   puts "# **Error** #{e}"
+  puts e.backtrace
 end
