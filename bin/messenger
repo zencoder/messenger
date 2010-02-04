@@ -25,6 +25,10 @@ EOS
   opt :from, "Who the message is from (email).", :type => String
   opt :subject, "The message subject (email).", :type => String
 
+  # Jabber options
+  opt :jabber_id, "The jabber ID to connect as (user@example.com)", :type => String
+  opt :jabber_password, "The password for your jabber id", :type => String
+
   # CLI options
   opt :silent, "Don't print anything to stdout", :default => false
   opt :verbose, "Print verbose output on success", :default => false

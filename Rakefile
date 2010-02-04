@@ -30,6 +30,8 @@ begin
     s.add_dependency('mime-types', '>=1.16')
     s.add_dependency('httparty', '>=0.5.2')
     s.add_dependency('SystemTimer', '>=1.1.3')
+    s.add_dependency('xmpp4r', '>=0.5')
+    s.add_dependency('xmpp4r-simple', '>=0.8.8')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler."
