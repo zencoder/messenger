@@ -1,13 +1,40 @@
 #!/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__) + '/../lib/messenger')
 require 'trollop'
+require 'yaml'
+
+
+#-------------------------------------
+# Support
+#-------------------------------------
+
+class Hash
+
+  def symbolize_keys
+    inject({}) do |options, (key, value)|
+      options[(key.to_sym rescue key) || key] = value
+      options
+    end
+  end
+
+  def symbolize_keys!
+    self.replace(self.symbolize_keys)
+  end
+
+end
 
 
 #
 # Configure options
 #
 
-opts = Trollop::options do
+if File.exists?(File.expand_path("~/.messenger"))
+  options = YAML.load_file(File.expand_path("~/.messenger")).symbolize_keys!
+else
+  options = {}
+end
+
+trollop_options = Trollop::options do
   version "Messenger #{Messenger.version} (c) Zencoder Inc. All rights reserved, etc."
   banner <<-EOS
 Messenger makes sending messages easy.
@@ -33,6 +60,8 @@ EOS
   opt :silent, "Don't print anything to stdout", :default => false
   opt :verbose, "Print verbose output on success", :default => false
 end
+
+options.merge!(trollop_options.reject{|k,v| v.nil?})
 
 #
 # Validate input
