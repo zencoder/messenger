@@ -11,6 +11,7 @@ module Messenger
         :subject => options[:subject],
         :body => message
       )
+      [true, nil]
     end
 
   end

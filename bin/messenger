@@ -56,8 +56,14 @@ end
 #
 puts "# Sending message to #{ARGV[0]}"
 begin
-  Messenger.send(ARGV[0], ARGV[1], opts)
-  puts "# Message sent successfully"
+  status, details = Messenger.send(ARGV[0], ARGV[1], opts)
+  if !!status
+    puts "# Message sent successfully"
+  else
+    puts "# Message not sent"
+    puts "# Details:"
+    puts details
+  end
 rescue => e
   puts "# **Error** #{e}"
   puts e.backtrace

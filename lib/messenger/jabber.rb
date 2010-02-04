@@ -13,6 +13,8 @@ module Messenger
         pending_messages_count = jabber.send(:queue, :pending_messages).size
         sleep 1
       end
+      status = jabber.subscribed_to?(recipient)
+      [status, status ? nil : "Not authorized"]
     end
 
   end
