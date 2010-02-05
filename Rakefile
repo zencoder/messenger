@@ -1,6 +1,7 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'sdoc'
 
 task :default => :test
 Rake::TestTask.new { |t|
@@ -9,7 +10,7 @@ Rake::TestTask.new { |t|
 
 Rake::RDocTask.new do |t|
   t.rdoc_dir = 'doc'
-  t.rdoc_files.include('lib/**/*.rb')
+  t.rdoc_files.include('lib/**/*.rb', 'README.markdown', 'LICENSE')
   t.options << '--inline-source'
   t.options << '--all'
   t.options << '--line-numbers'
