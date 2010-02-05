@@ -5,6 +5,8 @@ module Messenger
 
   class Campfire
 
+    # URL format:
+    #     campfire://api-key:room-id@subdomain.campfirenow.com
     def self.send(url, body, options={})
       begin
         api_key, room, subdomain = url.match(/^campfire:\/\/([^:]+):([^@]+)@([^\.]+)/)[1,3]

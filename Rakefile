@@ -9,8 +9,10 @@ Rake::TestTask.new { |t|
 }
 
 Rake::RDocTask.new do |t|
+  t.title = "Messenger"
   t.rdoc_dir = 'doc'
-  t.rdoc_files.include('lib/**/*.rb', 'README.markdown', 'LICENSE')
+  t.rdoc_files.include('README.markdown', 'LICENSE', 'lib/**/*.rb')
+  t.main = "README.markdown"
   t.options << '--inline-source'
   t.options << '--all'
   t.options << '--line-numbers'

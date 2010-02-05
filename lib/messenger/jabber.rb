@@ -4,6 +4,14 @@ module Messenger
 
   class Jabber
 
+    # URL format:
+    #     jabber://email@example.com/server_hostname
+    #
+    # The server's hostname is optional, but needed for Google Apps jabber accounts.
+    #
+    # Options:
+    #     :jabber_id => The jabber id of the sender
+    #     :jabber_password => The password of the sender
     def self.send(url, body, options={})
       recipient, host = url.sub("jabber://", "").split("/")[0,2]
       jabber = ::Jabber::Simple.new(options[:jabber_id], options[:jabber_password], host)
