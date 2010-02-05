@@ -10,27 +10,33 @@ Services
 Email
 -----
 
-Email messages are send
+Email messages are sent using the Pony gem.
 
-messenger mailto:email@example.com "Message" --email-from your.email@example.com --email-subject "Hi"
+    messenger mailto:email@example.com "Message" --email-from your.email@example.com --email-subject "Hi"
 
 
 Web
 ---
 
-messenger http://example.com "Message"
+Web posts are send using the HTTParty gem. The message is sent as the request body, not the query.
+
+    messenger http://example.com "Message"
 
 
 Campfire
 --------
 
-messenger campfire://api-key:room-id@subdomain.campfirenow.com "Message"
+Campfire messages are sent using the HTTParty gem against the Campfire API.
+
+    messenger campfire://api-key:room-id@subdomain.campfirenow.com "Message"
 
 
 Jabber
 ------
 
-messenger jabber://email@example.com "Message" --jabber-id your.email@example.com --jabber-password #######
+Jabber messages are sent using the xmppr4-simple gem. It's important to note that the jabber server can be sent in the URL if it can't be inferred from the jabber ID (as is the case for Google Apps ids).
+
+    messenger jabber://email@example.com/jabber_server "Message" --jabber-id your.email@example.com --jabber-password #######
 
 
 Config
@@ -40,3 +46,6 @@ Messenger will also read in ~/.messenger (a YAML file) for default config inform
 
     jabber_id: email@example.com
     jabber_password: ########
+
+
+(c) 2010 Brandon Arbini / Zencoder, Inc.
