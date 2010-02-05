@@ -25,6 +25,7 @@ begin
     s.description = "Messenger: easy message sending"
     s.authors = ["Brandon Arbini"]
     s.files = FileList["[A-Z]*.*", "{lib,test}/**/*"]
+    s.add_dependency('trollop', '>=1.15')
     s.add_dependency('pony', '>= 0.6')
     s.add_dependency('tmail', '>=1.2.6')
     s.add_dependency('mime-types', '>=1.16')

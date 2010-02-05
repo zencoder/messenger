@@ -53,6 +53,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<trollop>, [">= 1.15"])
       s.add_runtime_dependency(%q<pony>, [">= 0.6"])
       s.add_runtime_dependency(%q<tmail>, [">= 1.2.6"])
       s.add_runtime_dependency(%q<mime-types>, [">= 1.16"])
@@ -62,6 +63,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<xmpp4r-simple>, ["= 0.8.8"])
       s.add_runtime_dependency(%q<json_pure>, [">= 1.2.0"])
     else
+      s.add_dependency(%q<trollop>, [">= 1.15"])
       s.add_dependency(%q<pony>, [">= 0.6"])
       s.add_dependency(%q<tmail>, [">= 1.2.6"])
       s.add_dependency(%q<mime-types>, [">= 1.16"])
@@ -72,6 +74,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json_pure>, [">= 1.2.0"])
     end
   else
+    s.add_dependency(%q<trollop>, [">= 1.15"])
     s.add_dependency(%q<pony>, [">= 0.6"])
     s.add_dependency(%q<tmail>, [">= 1.2.6"])
     s.add_dependency(%q<mime-types>, [">= 1.16"])
