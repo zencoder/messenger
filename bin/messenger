@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
-require File.expand_path(File.dirname(__FILE__) + '/../lib/messenger')
+
+lib_dir = File.join(File.dirname(__FILE__), '..', 'lib')
+$LOAD_PATH.unshift lib_dir if File.directory?(lib_dir)
+
+require 'messenger'
 require 'trollop'
 require 'yaml'
 
