@@ -17,7 +17,6 @@ module Messenger
          subject options[:email_subject]
             body message
       end
-      mail.delivery_method :sendmail
       mail.deliver!
       [true, nil]
     end
