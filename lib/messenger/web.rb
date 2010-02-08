@@ -4,14 +4,33 @@ module Messenger
 
   class Web
 
+    def self.valid_url?(url)
+      !!URI.parse(url)
+    rescue URI::InvalidURIError
+      false
+    end
+
     # URL format:
     #     http://example.com
+    #     https://user:pass@example.com
     #
     # The body of the message is posted as the body of the request, not the query.
     def self.send(url, body, options={})
+      raise URLError, "The URL provided is invalid" unless self.valid_url?(url)
       response = HTTParty.post(url, options.merge(:body => body))
       [success?(response), response]
     end
+
+    def self.obfuscate(url)
+      raise URLError, "The URL provided is invalid" unless self.valid_url?(url)
+      path = URI.parse(url)
+      if path.password
+        url.sub(/#{path.password}/, 'xxxx')
+      else
+        url
+      end
+    end
+
 
   private
 
