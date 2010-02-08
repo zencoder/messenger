@@ -1,4 +1,4 @@
-require 'pony'
+require 'mail'
 
 module Messenger
 
@@ -11,12 +11,14 @@ module Messenger
     #     :email_from => Who the email is from
     #     :email_subject => The subject of the email
     def self.send(url, message, options={})
-      Pony.mail(
-        :to => url.sub(/mailto:/, ''),
-        :from => options[:email_from],
-        :subject => options[:email_subject],
-        :body => message
-      )
+      mail = Mail.new do
+            from options[:email_from]
+              to url.sub(/mailto:/, '')
+         subject options[:email_subject]
+            body message
+      end
+      mail.delivery_method :sendmail
+      mail.deliver!
       [true, nil]
     end
 

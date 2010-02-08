@@ -29,14 +29,13 @@ begin
     s.authors = ["Brandon Arbini"]
     s.files = FileList["[A-Z]*.*", "{lib,test}/**/*"]
     s.add_dependency('trollop', '>=1.15')
-    s.add_dependency('pony', '>= 0.6')
-    s.add_dependency('tmail', '>=1.2.6')
     s.add_dependency('mime-types', '>=1.16')
     s.add_dependency('httparty', '>=0.5.2')
     s.add_dependency('SystemTimer', '>=1.1.3')
     s.add_dependency('xmpp4r', '=0.5')
     s.add_dependency('xmpp4r-simple', '=0.8.8')
     s.add_dependency('json_pure', '>=1.2.0')
+    s.add_dependency('mail', '>=2.1.2')
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler."
