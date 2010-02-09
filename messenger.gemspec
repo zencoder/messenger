@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{messenger}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brandon Arbini"]
@@ -26,12 +26,14 @@ Gem::Specification.new do |s|
      "lib/messenger/email.rb",
      "lib/messenger/errors.rb",
      "lib/messenger/jabber.rb",
+     "lib/messenger/result.rb",
      "lib/messenger/web.rb",
      "test/test_campfire.rb",
      "test/test_email.rb",
      "test/test_helper.rb",
      "test/test_jabber.rb",
      "test/test_messenger.rb",
+     "test/test_result.rb",
      "test/test_web.rb"
   ]
   s.homepage = %q{http://github.com/zencoder/messenger}
@@ -45,6 +47,7 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/test_jabber.rb",
      "test/test_messenger.rb",
+     "test/test_result.rb",
      "test/test_web.rb"
   ]
 
