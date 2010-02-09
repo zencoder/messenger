@@ -20,11 +20,21 @@ module Messenger
   end
 
 
+  def self.valid_url?(url)
+    service_handler = handler(url)
+    service_handler.valid_url?(url)
+  end
+
   def self.send(url, message, options={})
     service_handler = handler(url)
     SystemTimer.timeout_after(options[:timeout] || 15) do
       service_handler.send(url, message, options)
     end
+  end
+
+  def self.obfuscate(url)
+    service_handler = handler(url)
+    service_handler.obfuscate(url)
   end
 
 

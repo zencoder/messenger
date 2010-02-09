@@ -4,7 +4,22 @@ module Messenger
 
   class Jabber
 
+    def self.valid_url?(url)
+      !!matcher(url)
+    rescue NoMethodError
+      false
+    end
+
+    # URL format:
+    #     jabber://email@example.com/server_hostname
+    #
+    # The server's hostname is optional, but needed for Google Apps jabber accounts.
+    #
+    # Options:
+    #     :jabber_id => The jabber id of the sender
+    #     :jabber_password => The password of the sender
     def self.send(url, body, options={})
+      raise URLError, "The URL provided is invalid" unless valid_url?(url)
       recipient, host = url.sub("jabber://", "").split("/")[0,2]
       jabber = ::Jabber::Simple.new(options[:jabber_id], options[:jabber_password], host)
       jabber.deliver(recipient, body)
@@ -15,6 +30,18 @@ module Messenger
       end
       status = jabber.subscribed_to?(recipient)
       Result.new(status, status ? nil : "Not yet authorized")
+    end
+
+    def self.obfuscate(url)
+      raise URLError, "The URL provided is invalid" unless valid_url?(url)
+      url
+    end
+
+
+  private
+
+    def self.matcher(url)
+      url.sub("jabber://", "").match("@")
     end
 
   end

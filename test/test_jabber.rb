@@ -31,6 +31,34 @@ module Messenger
         assert_equal false, result.success?
         assert_equal "Not yet authorized", result.response
       end
+
+      should "raise when sending to an invalid URL" do
+        assert_raises URLError do
+          Jabber.send("jabber://", :jabber_id => "asdf", :jabber_password => "asdf")
+        end
+      end
+
+      should "obfuscate the URL" do
+        assert_equal "jabber://test@example.com", Jabber.obfuscate("jabber://test@example.com")
+      end
+
+      should "raise when obfuscating an invalid URL" do
+        assert_raises URLError do
+          Jabber.obfuscate("jabber://")
+        end
+      end
+    end
+
+    context "Jabber URL validation" do
+      should "return true for good URLs" do
+        assert true, Jabber.valid_url?("jabber://test@example.com")
+      end
+
+      should "return false for bad URLs" do
+        assert_equal false, Jabber.valid_url?("jabber://!")
+        assert_equal false, Jabber.valid_url?("jabber://test")
+        assert_equal false, Jabber.valid_url?("jabber://example.com")
+      end
     end
 
   end

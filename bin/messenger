@@ -44,7 +44,7 @@ trollop_options = Trollop::options do
 Messenger makes sending messages easy.
 
 Usage:
-        script/messenger [options] <service> <message>
+        messenger [options] <service> <message>
 
 Where [options] are:
 EOS
@@ -53,16 +53,16 @@ EOS
   opt :timeout, "The number of seconds to allow for the call", :type => Integer
 
   # Email options
-  opt :from, "Who the message is from (email).", :type => String
-  opt :subject, "The message subject (email).", :type => String
+  opt :email_from, "Who the message is from (email).", :type => String
+  opt :email_subject, "The message subject (email).", :type => String
 
   # Jabber options
   opt :jabber_id, "The jabber ID to connect as (user@example.com)", :type => String
   opt :jabber_password, "The password for your jabber id", :type => String
 
   # CLI options
-  opt :silent, "Don't print anything to stdout", :default => false
-  opt :verbose, "Print verbose output on success", :default => false
+  # opt :silent, "Don't print anything to stdout", :default => false
+  # opt :verbose, "Print verbose output on success", :default => false
 end
 
 options.merge!(trollop_options.reject{|k,v| v.nil?})
@@ -77,7 +77,7 @@ Error: no service or message specified.
 
 Usage (--help for more):
 
-        script/messenger [options] <service> <message>
+        messenger [options] <service> <message>
 
 EOS
   exit -1
