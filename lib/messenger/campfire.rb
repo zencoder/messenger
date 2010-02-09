@@ -17,7 +17,7 @@ module Messenger
         :headers => { "Content-Type" => "application/json" },
         :body => { "message" => { "body" => body } }.to_json
       )
-      [success?(response), response]
+      Result.new(success?(response), response)
     end
 
 

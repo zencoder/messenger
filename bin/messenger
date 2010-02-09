@@ -89,13 +89,13 @@ end
 #
 puts "# Sending message to #{ARGV[0]}"
 begin
-  status, details = Messenger.send(ARGV[0], ARGV[1], options)
-  if !!status
+  result = Messenger.send(ARGV[0], ARGV[1], options)
+  if result.success?
     puts "# Message sent successfully"
   else
     puts "# Message not sent"
     puts "# Details:"
-    puts details
+    puts result.response
   end
 rescue => e
   puts "# **Error** #{e}"

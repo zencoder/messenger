@@ -6,7 +6,7 @@ module Messenger
 
     def self.send(url, body, options={})
       response = HTTParty.post(url, options.merge(:body => body))
-      [success?(response), response]
+      Result.new(success?(response), response)
     end
 
   private

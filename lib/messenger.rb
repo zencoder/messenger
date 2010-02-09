@@ -53,6 +53,7 @@ module Messenger
   end
 
 
+  autoload :Result, "messenger/result"
   autoload :Email, "messenger/email"
   autoload :Web, "messenger/web"
   autoload :Campfire, "messenger/campfire"
