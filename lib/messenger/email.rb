@@ -24,6 +24,8 @@ module Messenger
       end
       mail.deliver!
       Result.new(true, nil)
+    rescue Errno::ECONNREFUSED => e
+      Result.new(false, e)
     end
 
     def self.obfuscate(url)
