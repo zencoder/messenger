@@ -22,7 +22,7 @@ module Messenger
         :headers => { "Content-Type" => "application/json" },
         :body => { "message" => { "body" => body } }.to_json
       )
-      Result.new(success?(response), { :code => response.code, :headers => response.headers, :body => response.body })
+      Result.new(success?(response), response)
     end
 
     def self.obfuscate(url)

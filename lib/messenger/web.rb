@@ -18,7 +18,7 @@ module Messenger
     def self.send(url, body, options={})
       raise URLError, "The URL provided is invalid" unless self.valid_url?(url)
       response = HTTParty.post(url, options.merge(:body => body))
-      Result.new(success?(response), { :code => response.code, :headers => response.headers, :body => response.body })
+      Result.new(success?(response), response)
     end
 
     def self.obfuscate(url)

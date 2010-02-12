@@ -7,8 +7,8 @@ module Messenger
 
     context "Campfire notification" do
       setup do
-        @success_response = stub("response", :code => 200)
-        @failure_response = stub("response", :code => 500)
+        @success_response = stub(:code => 200)
+        @failure_response = stub(:code => 500)
       end
 
       should "post a successful message" do
