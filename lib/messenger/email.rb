@@ -23,9 +23,9 @@ module Messenger
             body message
       end
       mail.deliver!
-      Result.new(true, nil)
+      Result.new(true)
     rescue Errno::ECONNREFUSED => e
-      Result.new(false, e)
+      Result.new(false, { :code => e.class, :headers => e.message, :body => e.backtrace })
     end
 
     def self.obfuscate(url)

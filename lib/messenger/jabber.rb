@@ -29,7 +29,7 @@ module Messenger
         sleep 1
       end
       status = jabber.subscribed_to?(recipient)
-      Result.new(status, status ? nil : "Not yet authorized")
+      Result.new(status, status ? {} : { :body => "Not yet authorized" })
     end
 
     def self.obfuscate(url)

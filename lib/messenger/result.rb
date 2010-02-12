@@ -2,11 +2,13 @@ module Messenger
 
   class Result
 
-    attr_reader :response
+    attr_reader :response_code, :response_headers, :response_body
 
-    def initialize(success, response)
+    def initialize(success, options={})
       @success = success
-      @response = response
+      @response_code = options[:code]
+      @response_headers = options[:headers]
+      @response_body = options[:body]
     end
 
     def success?
