@@ -13,6 +13,18 @@ module Messenger
       !!@success
     end
 
+    def code
+      response.code rescue nil
+    end
+
+    def body
+      if response.respond_to?(:body)
+        response.body
+      else
+        response
+      end
+    end
+
   end
 
 end
