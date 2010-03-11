@@ -23,6 +23,8 @@ module Messenger
   def self.valid_url?(url)
     service_handler = handler(url)
     service_handler.valid_url?(url)
+  rescue ProtocolError
+    false
   end
 
   def self.send(url, message, options={})
