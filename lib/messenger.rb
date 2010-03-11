@@ -1,7 +1,6 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'rubygems'
-require 'ruby-debug'
 require 'messenger/errors'
 require 'system_timer'
 
