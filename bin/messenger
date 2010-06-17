@@ -60,6 +60,12 @@ EOS
   opt :jabber_id, "The jabber ID to connect as (user@example.com)", :type => String
   opt :jabber_password, "The password for your jabber id", :type => String
 
+  # Notifo options
+  opt :notifo_api_username, "The service's API username", :type => String
+  opt :notifo_api_secret, "The service's API secret", :type => String
+  opt :notifo_title, "The notificaiton title", :type => String
+  opt :notifo_url, "Open this URL", :type => String
+
   # CLI options
   # opt :silent, "Don't print anything to stdout", :default => false
   # opt :verbose, "Print verbose output on success", :default => false

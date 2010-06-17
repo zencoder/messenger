@@ -45,10 +45,11 @@ module Messenger
     #   twitter://username
     #   aim://username
     case url
-    when /^http/:     :http
-    when /^campfire/: :campfire
-    when /^jabber/:   :jabber
-    when /^mailto|@+/:   :email
+    when /^http/:      :http
+    when /^campfire/:  :campfire
+    when /^jabber/:    :jabber
+    when /^notifo/:    :notifo
+    when /^mailto|@+/: :email
     end
   end
 
@@ -58,6 +59,7 @@ module Messenger
     when :http:     Web
     when :campfire: Campfire
     when :jabber:   Jabber
+    when :notifo:   Notifo
     else
       raise ProtocolError, "Malformed service URL: #{url}. Either this syntax is wrong or this service type is not yet implemented."
     end
@@ -69,5 +71,6 @@ module Messenger
   autoload :Web, "messenger/web"
   autoload :Campfire, "messenger/campfire"
   autoload :Jabber, "messenger/jabber"
+  autoload :Notifo, "messenger/notifo"
 
 end
