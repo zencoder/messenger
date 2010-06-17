@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{messenger}
-  s.version = "0.1.1"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Brandon Arbini"]
-  s.date = %q{2010-02-08}
+  s.date = %q{2010-06-17}
   s.default_executable = %q{messenger}
   s.description = %q{Messenger: easy message sending}
   s.email = %q{brandon@zencoder.tv}
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "lib/messenger/email.rb",
      "lib/messenger/errors.rb",
      "lib/messenger/jabber.rb",
+     "lib/messenger/notifo.rb",
      "lib/messenger/result.rb",
      "lib/messenger/web.rb",
      "test/test_campfire.rb",
@@ -33,13 +34,14 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/test_jabber.rb",
      "test/test_messenger.rb",
+     "test/test_notifo.rb",
      "test/test_result.rb",
      "test/test_web.rb"
   ]
   s.homepage = %q{http://github.com/zencoder/messenger}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{Messenger: easy message sending}
   s.test_files = [
     "test/test_campfire.rb",
@@ -47,6 +49,7 @@ Gem::Specification.new do |s|
      "test/test_helper.rb",
      "test/test_jabber.rb",
      "test/test_messenger.rb",
+     "test/test_notifo.rb",
      "test/test_result.rb",
      "test/test_web.rb"
   ]
@@ -55,7 +58,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<trollop>, [">= 1.15"])
       s.add_runtime_dependency(%q<mime-types>, [">= 1.16"])
       s.add_runtime_dependency(%q<httparty>, [">= 0.5.2"])
