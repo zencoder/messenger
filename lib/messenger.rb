@@ -45,10 +45,10 @@ module Messenger
     #   twitter://username
     #   aim://username
     case url
-    when /^mailto/:   :email
     when /^http/:     :http
     when /^campfire/: :campfire
     when /^jabber/:   :jabber
+    when /^mailto|@+/:   :email
     end
   end
 

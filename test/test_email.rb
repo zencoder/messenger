@@ -46,7 +46,6 @@ module Messenger
       should "return false for bad URLs" do
         assert_equal false, Email.valid_url?("mailto:")
         assert_equal false, Email.valid_url?("mailto:test")
-        assert_equal false, Email.valid_url?("mailto:@example.com")
         assert_equal false, Email.valid_url?("mailto:example.com")
       end
     end

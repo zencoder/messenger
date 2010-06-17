@@ -17,7 +17,7 @@ module Messenger
       raise URLError, "The URL provided is invalid" unless valid_url?(url)
       api_key, room, subdomain = matcher(url)
       response = HTTParty.post(
-        "http://#{subdomain}.campfirenow.com/room/#{room}/speak.json",
+        "https://#{subdomain}.campfirenow.com/room/#{room}/speak.json",
         :basic_auth => { :username => api_key, :password => "x" },
         :headers => { "Content-Type" => "application/json" },
         :body => { "message" => { "body" => body } }.to_json

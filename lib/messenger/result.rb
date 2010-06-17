@@ -21,7 +21,7 @@ module Messenger
       if response.respond_to?(:body)
         response.body
       else
-        response
+        response.to_s
       end
     end
 

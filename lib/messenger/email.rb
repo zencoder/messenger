@@ -5,7 +5,7 @@ module Messenger
   class Email
 
     def self.valid_url?(url)
-      !!url.match(/mailto:[^@]+@.*/)
+      !!url.match(/^(mailto:)?[^@]+@.*$/)
     end
 
     # URL format:
@@ -24,7 +24,7 @@ module Messenger
       end
       mail.deliver!
       Result.new(true, nil)
-    rescue Errno::ECONNREFUSED => e
+    rescue Errno::ECONNREFUSED, Errno::EAFNOSUPPORT => e
       Result.new(false, e)
     end
 
