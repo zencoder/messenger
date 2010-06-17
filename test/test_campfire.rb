@@ -18,6 +18,13 @@ module Messenger
         assert_equal @success_response, result.response
       end
 
+      should "post to secure URL" do
+        HTTParty.expects(:post).with("https://subdomain.campfirenow.com/room/room/speak.json", :basic_auth => { :username => 'api', :password => 'x' }, :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json" }).returns(@success_response)
+        result = Campfire.send("campfire-ssl://api:room@subdomain.campfirenow.com", 'content')
+        assert result.success?
+        assert_equal @success_response, result.response
+      end
+
       should "post a failed message" do
         HTTParty.expects(:post).with("http://subdomain.campfirenow.com/room/room/speak.json", :basic_auth => { :username => 'api', :password => 'x' }, :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json" }).returns(@failure_response)
         result = Campfire.send("campfire://api:room@subdomain.campfirenow.com", 'content')
@@ -35,6 +42,10 @@ module Messenger
         assert_equal "campfire://xxxx:1234@example.campfirenow.com", Campfire.obfuscate("campfire://asdf1234:1234@example.campfirenow.com")
       end
 
+      should "obfuscate a secure URL" do
+        assert_equal "campfire-ssl://xxxx:1234@example.campfirenow.com", Campfire.obfuscate("campfire-ssl://asdf1234:1234@example.campfirenow.com")
+      end
+
       should "raise when obfuscating an invalid URL" do
         assert_raises URLError do
           Campfire.obfuscate("campfire://missing_room@subdomain.campfirenow.com")
@@ -45,6 +56,7 @@ module Messenger
     context "Campfire URL validation" do
       should "return true for good URLs" do
         assert true, Campfire.valid_url?("campfire://api_key:room@subdomain.campfirenow.com")
+        assert true, Campfire.valid_url?("campfire-ssl://api_key:room@subdomain.campfirenow.com")
       end
 
       should "return false for bad URLs" do

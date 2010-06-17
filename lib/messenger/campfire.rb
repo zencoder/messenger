@@ -15,9 +15,9 @@ module Messenger
     #     campfire://api-key:room-id@subdomain.campfirenow.com
     def self.send(url, body, options={})
       raise URLError, "The URL provided is invalid" unless valid_url?(url)
-      api_key, room, subdomain = matcher(url)
+      ssl, api_key, room, subdomain = matcher(url)
       response = HTTParty.post(
-        "https://#{subdomain}.campfirenow.com/room/#{room}/speak.json",
+        "http#{ssl ? "s" : ""}://#{subdomain}.campfirenow.com/room/#{room}/speak.json",
         :basic_auth => { :username => api_key, :password => "x" },
         :headers => { "Content-Type" => "application/json" },
         :body => { "message" => { "body" => body } }.to_json
@@ -27,15 +27,15 @@ module Messenger
 
     def self.obfuscate(url)
       raise URLError, "The URL provided is invalid" unless valid_url?(url)
-      api_key, room, subdomain = matcher(url)
-      "campfire://xxxx:#{room}@#{subdomain}.campfirenow.com"
+      ssl, api_key, room, subdomain = matcher(url)
+      "campfire#{ssl ? "-ssl" : ""}://xxxx:#{room}@#{subdomain}.campfirenow.com"
     end
 
 
   private
 
     def self.matcher(url)
-      url.match(/^campfire:\/\/([^:]+):([^@]+)@([^\.]+).campfirenow.com/)[1,3]
+      url.match(/^campfire(-ssl)?:\/\/([^:]+):([^@]+)@([^\.]+).campfirenow.com/)[1,4]
     end
 
     def self.success?(response)
