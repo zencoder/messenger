@@ -1,47 +1,43 @@
-require 'httparty'
+require 'typhoeus'
 
-module Messenger
+class Messenger::Web
 
-  class Web
+  def self.valid_url?(url)
+    !!URI.parse(url)
+  rescue URI::InvalidURIError
+    false
+  end
 
-    def self.valid_url?(url)
-      !!URI.parse(url)
-    rescue URI::InvalidURIError
+  # URL format:
+  #     http://example.com
+  #     https://user:pass@example.com
+  #
+  # The body of the message is posted as the body of the request, not the query.
+  def self.deliver(url, body, options={})
+    raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
+    response = Typhoeus::Request.post(url, options.merge(:body => body))
+    Messenger::Result.new(success?(response), response)
+  end
+
+  def self.obfuscate(url)
+    raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
+    path = URI.parse(url)
+    if path.password
+      url.sub(/#{path.password}/, 'xxxx')
+    else
+      url
+    end
+  end
+
+
+private
+
+  def self.success?(response)
+    case response.code
+    when 200, 201: true
+    else
       false
     end
-
-    # URL format:
-    #     http://example.com
-    #     https://user:pass@example.com
-    #
-    # The body of the message is posted as the body of the request, not the query.
-    def self.send(url, body, options={})
-      raise URLError, "The URL provided is invalid" unless self.valid_url?(url)
-      response = HTTParty.post(url, options.merge(:body => body))
-      Result.new(success?(response), response)
-    end
-
-    def self.obfuscate(url)
-      raise URLError, "The URL provided is invalid" unless self.valid_url?(url)
-      path = URI.parse(url)
-      if path.password
-        url.sub(/#{path.password}/, 'xxxx')
-      else
-        url
-      end
-    end
-
-
-  private
-
-    def self.success?(response)
-      case response.code
-      when 200, 201: true
-      else
-        false
-      end
-    end
-
   end
 
 end

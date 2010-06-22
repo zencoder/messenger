@@ -95,7 +95,7 @@ end
 #
 puts "# Sending message to #{ARGV[0]}"
 begin
-  result = Messenger.send(ARGV[0], ARGV[1], options)
+  result = Messenger.deliver(ARGV[0], ARGV[1], options)
   if result.success?
     puts "# Message sent successfully"
   else

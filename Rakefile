@@ -1,42 +1,36 @@
+require 'rubygems'
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
-require 'sdoc'
+
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/*_test.rb'
+  test.verbose = true
+end
 
 task :default => :test
-Rake::TestTask.new { |t|
-  t.pattern = 'test/test_*.rb'
-}
 
-Rake::RDocTask.new do |t|
-  t.title = "Messenger"
-  t.rdoc_dir = 'doc'
-  t.rdoc_files.include('README.markdown', 'LICENSE', 'lib/**/*.rb')
-  t.main = "README.markdown"
-  t.options << '--inline-source'
-  t.options << '--all'
-  t.options << '--line-numbers'
+require 'rake/rdoctask'
+
+Rake::RDocTask.new do |rdoc|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "messenger #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
 begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |s|
-    s.name = "messenger"
-    s.summary = "Messenger: easy message sending"
-    s.email = "brandon@zencoder.tv"
-    s.homepage = "http://github.com/zencoder/messenger"
-    s.description = "Messenger: easy message sending"
-    s.authors = ["Brandon Arbini"]
-    s.files = FileList["[A-Z]*.*", "{lib,test}/**/*"]
-    s.add_dependency('trollop', '>=1.15')
-    s.add_dependency('mime-types', '>=1.16')
-    s.add_dependency('httparty', '>=0.5.2')
-    s.add_dependency('SystemTimer', '>=1.1.3')
-    s.add_dependency('xmpp4r', '=0.5')
-    s.add_dependency('xmpp4r-simple', '=0.8.8')
-    s.add_dependency('json_pure', '>=1.2.0')
-    s.add_dependency('mail', '>=2.1.2')
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/*_test.rb'
+    test.verbose = true
+    test.rcov_opts << '--exclude "gems/*"'
   end
 rescue LoadError
-  puts "Jeweler not available. Install it with: gem install jeweler."
+  task :rcov do
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install rcov"
+  end
 end
