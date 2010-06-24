@@ -3,18 +3,6 @@ require 'base64'
 
 module Messenger
 
-  MESSENGER_VERSION = [0,3,0] unless defined?(MESSENGER_VERSION)
-  APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/..') unless defined?(APP_ROOT)
-
-  def self.version
-    MESSENGER_VERSION.join(".")
-  end
-
-  def self.root
-    APP_ROOT
-  end
-
-
   def self.valid_url?(url)
     service_handler = handler(url)
     service_handler.valid_url?(url)

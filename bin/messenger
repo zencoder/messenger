@@ -39,7 +39,7 @@ else
 end
 
 trollop_options = Trollop::options do
-  version "Messenger #{Messenger.version} (c) Zencoder Inc. All rights reserved, etc."
+  version "Messenger #{Messenger::VERSION} (c) Zencoder Inc. All rights reserved, etc."
   banner <<-EOS
 Messenger makes sending messages easy.
 
