@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency "SystemTimer"
   s.add_dependency "xmpp4r-simple"
   s.add_dependency "mail"
-  s.add_dependency "typhoeus"
+  s.add_dependency "httparty"
   s.add_dependency "trollop"
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"

@@ -4,13 +4,13 @@ class Messenger::NotifoTest < Test::Unit::TestCase
 
   context "Notifo notification" do
     should "post a successful message" do
-      Typhoeus::Request.expects(:post).returns(stub(:code => 200))
+      HTTParty.expects(:post).returns(stub(:code => 200))
       result = Messenger::Notifo.deliver("notifo://testuser", 'message')
       assert result.success?
     end
 
     should "post a failed message" do
-      Typhoeus::Request.expects(:post).returns(stub(:code => 400))
+      HTTParty.expects(:post).returns(stub(:code => 400))
       result = Messenger::Notifo.deliver("notifo://testuser", 'message')
       assert !result.success?
     end

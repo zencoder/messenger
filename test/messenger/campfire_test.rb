@@ -9,21 +9,21 @@ class Messenger::CampfireTest < Test::Unit::TestCase
     end
 
     should "post a successful message" do
-      Typhoeus::Request.expects(:post).with("http://api:x@subdomain.campfirenow.com/room/room/speak.json", :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json"}).returns(@success_response)
+      HTTParty.expects(:post).with("http://api:x@subdomain.campfirenow.com/room/room/speak.json", :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json"}).returns(@success_response)
       result = Messenger::Campfire.deliver("campfire://api:room@subdomain.campfirenow.com", 'content')
       assert result.success?
       assert_equal @success_response, result.response
     end
 
     should "post to secure URL" do
-      Typhoeus::Request.expects(:post).with("https://api:x@subdomain.campfirenow.com/room/room/speak.json", :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json"}).returns(@success_response)
+      HTTParty.expects(:post).with("https://api:x@subdomain.campfirenow.com/room/room/speak.json", :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json"}).returns(@success_response)
       result = Messenger::Campfire.deliver("campfire-ssl://api:room@subdomain.campfirenow.com", 'content')
       assert result.success?
       assert_equal @success_response, result.response
     end
 
     should "post a failed message" do
-      Typhoeus::Request.expects(:post).with("http://api:x@subdomain.campfirenow.com/room/room/speak.json", :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json"}).returns(@failure_response)
+      HTTParty.expects(:post).with("http://api:x@subdomain.campfirenow.com/room/room/speak.json", :body => '{"message":{"body":"content"}}', :headers => { "Content-Type" => "application/json"}).returns(@failure_response)
       result = Messenger::Campfire.deliver("campfire://api:room@subdomain.campfirenow.com", 'content')
       assert_equal false, result.success?
       assert_equal @failure_response, result.response

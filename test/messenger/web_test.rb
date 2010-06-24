@@ -9,14 +9,14 @@ class Messenger::WebTest < Test::Unit::TestCase
     end
 
     should "post a successful message" do
-      Typhoeus::Request.expects(:post).with("http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).returns(@success_response)
+      HTTParty.expects(:post).with("http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).returns(@success_response)
       result = Messenger::Web.deliver("http://example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
       assert result.success?
       assert_equal @success_response, result.response
     end
 
     should "post a failed message" do
-      Typhoeus::Request.expects(:post).with("http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).returns(@failure_response)
+      HTTParty.expects(:post).with("http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).returns(@failure_response)
       result = Messenger::Web.deliver("http://example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
       assert_equal false, result.success?
       assert_equal @failure_response, result.response

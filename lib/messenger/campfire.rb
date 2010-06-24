@@ -1,4 +1,4 @@
-require 'typhoeus'
+require 'httparty'
 require 'json'
 
 class Messenger::Campfire
@@ -15,7 +15,7 @@ class Messenger::Campfire
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
     ssl, api_key, room, subdomain = matcher(url)
     options[:headers] ||= {}
-    response = Typhoeus::Request.post(
+    response = HTTParty.post(
       "http#{ssl ? "s" : ""}://#{api_key}:x@#{subdomain}.campfirenow.com/room/#{room}/speak.json",
       :headers => { "Content-Type" => "application/json"}.merge(options[:headers]),
       :body => { "message" => { "body" => body } }.to_json
