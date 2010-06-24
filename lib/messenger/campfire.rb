@@ -16,9 +16,10 @@ class Messenger::Campfire
     ssl, api_key, room, subdomain = matcher(url)
     options[:headers] ||= {}
     response = HTTParty.post(
-      "http#{ssl ? "s" : ""}://#{api_key}:x@#{subdomain}.campfirenow.com/room/#{room}/speak.json",
+      "http#{ssl ? "s" : ""}://#{subdomain}.campfirenow.com/room/#{room}/speak.json",
       :headers => { "Content-Type" => "application/json"}.merge(options[:headers]),
-      :body => { "message" => { "body" => body } }.to_json
+      :body => { "message" => { "body" => body } }.to_json,
+      :basic_auth => {:username => api_key, :password => 'x'}
     )
     Messenger::Result.new(success?(response), response)
   end

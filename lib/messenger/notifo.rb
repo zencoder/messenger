@@ -18,8 +18,9 @@ class Messenger::Notifo
   def self.deliver(url, message, options={})
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
     username = matcher(url)
-    response = HTTParty.post("https://#{options[:notifo_api_username]}:#{options[:notifo_api_secret]}@api.notifo.com/v1/send_notification",
-                                      :body => { :to => username, :msg => message, :title => options[:notifo_title], :uri => options[:notifo_url] })
+    response = HTTParty.post("https://api.notifo.com/v1/send_notification",
+                                      :body => { :to => username, :msg => message, :title => options[:notifo_title], :uri => options[:notifo_url] },
+                                      :basic_auth => {:username => options[:notifo_api_username], :password => options[:notifo_api_secret]})
     Messenger::Result.new(success?(response), response)
   end
 
