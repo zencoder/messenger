@@ -3,11 +3,11 @@ require 'base64'
 
 module Messenger
 
-  MESSAGER_VERSION = [0,1] unless defined?(MESSAGER_VERSION)
+  MESSENGER_VERSION = [0,3,0] unless defined?(MESSENGER_VERSION)
   APP_ROOT = File.expand_path(File.dirname(__FILE__) + '/..') unless defined?(APP_ROOT)
 
   def self.version
-    MESSAGER_VERSION.join(".")
+    MESSENGER_VERSION.join(".")
   end
 
   def self.root
