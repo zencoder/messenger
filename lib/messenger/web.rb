@@ -15,7 +15,8 @@ class Messenger::Web
   # The body of the message is posted as the body of the request, not the query.
   def self.deliver(url, body, options={})
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
-    response = HTTParty.post(url, options.merge(:body => body))
+    method = options.delete(:method) || :post
+    response = HTTParty.send(method, url, options.merge(:body => body))
     Messenger::Result.new(success?(response), response)
   end
 
