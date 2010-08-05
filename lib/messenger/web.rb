@@ -16,7 +16,7 @@ class Messenger::Web
   def self.deliver(url, body, options={})
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
     method = options.delete(:method) || :post
-    response = HTTParty.send(method, url, options.merge(:body => body))
+    response = HTTParty.send(method, url, options.merge(:body => body, :basic_auth => {:username => URI.parse(url).user, :password => URI.parse(url).password}))
     Messenger::Result.new(success?(response), response)
   end
 

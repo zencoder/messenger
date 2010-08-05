@@ -1,3 +1,5 @@
+source :rubygems
+
 gem "SystemTimer"
 gem "xmpp4r-simple"
 gem "mail"
