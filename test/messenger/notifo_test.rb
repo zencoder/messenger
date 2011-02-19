@@ -24,7 +24,7 @@ class Messenger::NotifoTest < Test::Unit::TestCase
 
   context "Notifo URL validation" do
     should "return true for good URLs" do
-      assert true, Messenger::Notifo.valid_url?("notifo://testuser")
+      assert_equal true, Messenger::Notifo.valid_url?("notifo://testuser")
     end
 
     should "return false for bad URLs" do

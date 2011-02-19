@@ -37,7 +37,7 @@ class Messenger::EmailTest < Test::Unit::TestCase
 
   context "Email notificaiton URL validation" do
     should "return true for good URLs" do
-      assert true, Messenger::Email.valid_url?("mailto:test@example.com")
+      assert_equal true, Messenger::Email.valid_url?("mailto:test@example.com")
     end
 
     should "return false for bad URLs" do

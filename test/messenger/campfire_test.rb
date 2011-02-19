@@ -52,8 +52,8 @@ class Messenger::CampfireTest < Test::Unit::TestCase
 
   context "Campfire URL validation" do
     should "return true for good URLs" do
-      assert true, Messenger::Campfire.valid_url?("campfire://api_key:room@subdomain.campfirenow.com")
-      assert true, Messenger::Campfire.valid_url?("campfire-ssl://api_key:room@subdomain.campfirenow.com")
+      assert_equal true, Messenger::Campfire.valid_url?("campfire://api_key:room@subdomain.campfirenow.com")
+      assert_equal true, Messenger::Campfire.valid_url?("campfire-ssl://api_key:room@subdomain.campfirenow.com")
     end
 
     should "return false for bad URLs" do

@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "test_helper"
 
 class Messenger::WebTest < Test::Unit::TestCase
@@ -50,11 +52,11 @@ class Messenger::WebTest < Test::Unit::TestCase
 
   context "Web notificaiton URL validation" do
     should "return true for good URLs" do
-      assert true, Messenger::Web.valid_url?("http://example.com")
-      assert true, Messenger::Web.valid_url?("https://example.com")
-      assert true, Messenger::Web.valid_url?("https://user@example.com")
-      assert true, Messenger::Web.valid_url?("http://user:pass@example.com")
-      assert true, Messenger::Web.valid_url?("https://user:#{URI.escape('!#$%^&*¢ç⎋')}@example.com")
+      assert_equal true, Messenger::Web.valid_url?("http://example.com")
+      assert_equal true, Messenger::Web.valid_url?("https://example.com")
+      assert_equal true, Messenger::Web.valid_url?("https://user@example.com")
+      assert_equal true, Messenger::Web.valid_url?("http://user:pass@example.com")
+      assert_equal true, Messenger::Web.valid_url?("https://user:#{URI.escape('!#$%^&*¢ç⎋')}@example.com")
     end
 
     should "return false for bad URLs" do

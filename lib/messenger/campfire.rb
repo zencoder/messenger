@@ -39,7 +39,8 @@ private
 
   def self.success?(response)
     case response.code
-    when 200, 201: true
+    when 200, 201
+      true
     else
       false
     end

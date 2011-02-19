@@ -34,21 +34,21 @@ module Messenger
     #   twitter://username
     #   aim://username
     case url
-    when /^http/:      :http
-    when /^campfire/:  :campfire
-    when /^jabber/:    :jabber
-    when /^notifo/:    :notifo
-    when /^mailto|@+/: :email
+    when /^http/ then      :http
+    when /^campfire/ then  :campfire
+    when /^jabber/ then    :jabber
+    when /^notifo/ then    :notifo
+    when /^mailto|@+/ then :email
     end
   end
 
   def self.handler(url)
     case protocol(url)
-    when :email:    Messenger::Email
-    when :http:     Messenger::Web
-    when :campfire: Messenger::Campfire
-    when :jabber:   Messenger::Jabber
-    when :notifo:   Messenger::Notifo
+    when :email then    Messenger::Email
+    when :http then     Messenger::Web
+    when :campfire then Messenger::Campfire
+    when :jabber then   Messenger::Jabber
+    when :notifo then   Messenger::Notifo
     else
       raise Messenger::ProtocolError, "Malformed service URL: #{url}. Either this syntax is wrong or this service type is not yet implemented."
     end

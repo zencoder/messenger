@@ -48,7 +48,7 @@ class Messenger::JabberTest < Test::Unit::TestCase
 
   context "Jabber URL validation" do
     should "return true for good URLs" do
-      assert true, Messenger::Jabber.valid_url?("jabber://test@example.com")
+      assert_equal true, Messenger::Jabber.valid_url?("jabber://test@example.com")
     end
 
     should "return false for bad URLs" do
