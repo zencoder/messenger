@@ -1,4 +1,3 @@
-require 'system_timer'
 require 'base64'
 
 module Messenger
@@ -12,8 +11,14 @@ module Messenger
 
   def self.deliver(url, message, options={})
     service_handler = handler(url)
-    SystemTimer.timeout_after(options[:timeout] || 15) do
-      service_handler.deliver(url, message, options)
+    if defined?(SystemTimer) && SystemTimer.respond_to?(:timeout_after)
+      SystemTimer.timeout_after(options[:timeout] || 15) do
+        service_handler.deliver(url, message, options)
+      end
+    else
+      Timeout.timeout(options[:timeout] || 15) do
+        service_handler.deliver(url, message, options)
+      end
     end
   end
 

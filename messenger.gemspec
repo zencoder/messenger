@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.executables = ["messenger"]
   s.extra_rdoc_files = ["LICENSE", "README.markdown"]
   s.rubyforge_project = "messenger"
-  s.add_dependency "SystemTimer"
   s.add_dependency "xmpp4r-simple"
   s.add_dependency "mail"
   s.add_dependency "httparty"
