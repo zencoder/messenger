@@ -41,12 +41,20 @@ class Messenger::WebTest < Test::Unit::TestCase
         Messenger::Web.obfuscate("http://!")
       end
     end
-    
+
     should "set username and password as options" do
-      HTTParty.expects(:send).with(:post, "http://user_name:secret_password@example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }, :basic_auth => {:username => "user_name",:password => "secret_password"}).returns(@success_response)
+      HTTParty.expects(:send).with(:post, "http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }, :basic_auth => {:username => "user_name",:password => "secret_password"}).returns(@success_response)
       result = Messenger::Web.deliver("http://user_name:secret_password@example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
       assert result.success?
       assert_equal @success_response, result.response
+    end
+
+    should "actually send to the correct URL when basic auth is used" do
+      stub_request(:post, "http://user_name:secret_password@example.com/").
+        with(:body => %{{ "key": "value" }},
+             :headers => {'Content-Type'=>'application/json'}).
+        to_return(:status => 200, :body => "", :headers => {})
+      Messenger::Web.deliver("http://user_name:secret_password@example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
     end
   end
 

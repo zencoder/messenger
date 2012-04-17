@@ -1,4 +1,5 @@
 require 'httparty'
+require 'cgi'
 
 class Messenger::Web
 
@@ -15,9 +16,15 @@ class Messenger::Web
   # The body of the message is posted as the body of the request, not the query.
   def self.deliver(url, body, options={})
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
-    method = options.delete(:method) || :post
-    options = options.merge(:basic_auth => {:username => URI.parse(url).user, :password => URI.parse(url).password}) if URI.parse(url).user && URI.parse(url).password
-    response = HTTParty.send(method, url, options.merge(:body => body))
+    options      = options.dup
+    method       = options.delete(:method) || :post
+    uri          = URI.parse(url)
+    user         = CGI.unescape(uri.user) if uri.user
+    password     = CGI.unescape(uri.password) if uri.password
+    options      = options.merge(:basic_auth => {:username => user, :password => password}) if user || password
+    uri.user     = nil if user
+    uri.password = nil if password
+    response     = HTTParty.send(method, uri.to_s, options.merge(:body => body))
     Messenger::Result.new(success?(response), response)
   end
 
