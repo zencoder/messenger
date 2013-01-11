@@ -11,17 +11,17 @@ class Messenger::WebTest < Test::Unit::TestCase
     end
 
     should "post a successful message" do
-      HTTParty.expects(:send).with(:post, "http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).returns(@success_response)
+      stub_request(:post, "http://example.com").with(:body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).to_return(:status => 200, :body => "", :headers => {})
       result = Messenger::Web.deliver("http://example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
       assert result.success?
-      assert_equal @success_response, result.response
+      assert_equal 200, result.response.code
     end
 
     should "post a failed message" do
-      HTTParty.expects(:send).with(:post, "http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).returns(@failure_response)
+      stub_request(:post, "http://example.com").with(:body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).to_return(:status => 500, :body => "", :headers => {})
       result = Messenger::Web.deliver("http://example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
       assert_equal false, result.success?
-      assert_equal @failure_response, result.response
+      assert_equal 500, result.response.code
     end
 
     should "raise if trying to send to an invalid URL" do
@@ -43,17 +43,14 @@ class Messenger::WebTest < Test::Unit::TestCase
     end
 
     should "set username and password as options" do
-      HTTParty.expects(:send).with(:post, "http://example.com", :body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }, :basic_auth => {:username => "user_name",:password => "secret_password"}).returns(@success_response)
+      stub_request(:post, "http://user_name:secret_password@example.com").with(:body => '{ "key": "value" }', :headers => { "Content-Type" => "application/json" }).to_return(:status => 200, :body => "", :headers => {})
       result = Messenger::Web.deliver("http://user_name:secret_password@example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
       assert result.success?
-      assert_equal @success_response, result.response
+      assert_equal 200, result.response.code
     end
 
     should "actually send to the correct URL when basic auth is used" do
-      stub_request(:post, "http://user_name:secret_password@example.com/").
-        with(:body => %{{ "key": "value" }},
-             :headers => {'Content-Type'=>'application/json'}).
-        to_return(:status => 200, :body => "", :headers => {})
+      stub_request(:post, "http://user_name:secret_password@example.com/").with(:body => %{{ "key": "value" }}, :headers => {'Content-Type'=>'application/json'}).to_return(:status => 200, :body => "", :headers => {})
       Messenger::Web.deliver("http://user_name:secret_password@example.com", '{ "key": "value" }', :headers => { "Content-Type" => "application/json" })
     end
   end
