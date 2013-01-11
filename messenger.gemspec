@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "mail"
   s.add_dependency "httparty"
   s.add_dependency "trollop"
+  s.add_dependency "addressable"
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"
   s.add_development_dependency "webmock"

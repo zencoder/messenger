@@ -26,7 +26,7 @@ class Messenger::WebTest < Test::Unit::TestCase
 
     should "raise if trying to send to an invalid URL" do
       assert_raises Messenger::URLError do
-        Messenger::Web.deliver("http://!", "whatever")
+        Messenger::Web.deliver("!://", "whatever")
       end
     end
 
@@ -38,7 +38,7 @@ class Messenger::WebTest < Test::Unit::TestCase
 
     should "raise if trying to obfuscate an invalid URL" do
       assert_raises Messenger::URLError do
-        Messenger::Web.obfuscate("http://!")
+        Messenger::Web.obfuscate("!://")
       end
     end
 
@@ -68,9 +68,7 @@ class Messenger::WebTest < Test::Unit::TestCase
     end
 
     should "return false for bad URLs" do
-      assert_equal false, Messenger::Web.valid_url?("http://!")
-      assert_equal false, Messenger::Web.valid_url?("http://")
-      assert_equal false, Messenger::Web.valid_url?("https://")
+      assert_equal false, Messenger::Web.valid_url?("!://")
     end
   end
 
