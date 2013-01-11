@@ -3,7 +3,7 @@ require 'mail'
 class Messenger::Email
 
   def self.valid_url?(url)
-    !!url.match(/^(mailto:)?[^@]+@.*$/)
+    !!url.match(/\A(mailto:)?[^@]+@.*\Z/)
   end
 
   # URL format:
@@ -16,7 +16,7 @@ class Messenger::Email
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
     mail = Mail.new do
           from options[:email_from]
-            to url.sub(/mailto:/, '')
+            to url.sub(/\Amailto:/, '')
        subject options[:email_subject]
           body message
     end

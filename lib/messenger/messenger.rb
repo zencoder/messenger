@@ -34,11 +34,11 @@ module Messenger
     #   twitter://username
     #   aim://username
     case url
-    when /^http/ then      :http
-    when /^campfire/ then  :campfire
-    when /^jabber/ then    :jabber
-    when /^notifo/ then    :notifo
-    when /^mailto|@+/ then :email
+    when /\Ahttp/ then      :http
+    when /\Acampfire/ then  :campfire
+    when /\Ajabber/ then    :jabber
+    when /\Anotifo/ then    :notifo
+    when /\Amailto|@+/ then :email
     end
   end
 

@@ -34,7 +34,7 @@ class Messenger::Campfire
 private
 
   def self.matcher(url)
-    url.match(/^campfire(-ssl)?:\/\/([^:]+):([^@]+)@([^\.]+).campfirenow.com/)[1,4]
+    url.match(/\Acampfire(-ssl)?:\/\/([^:]+):([^@]+)@([^\.]+).campfirenow.com/)[1,4]
   end
 
   def self.success?(response)
