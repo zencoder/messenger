@@ -37,7 +37,6 @@ module Messenger
     when /\Ahttp/ then      :http
     when /\Acampfire/ then  :campfire
     when /\Ajabber/ then    :jabber
-    when /\Anotifo/ then    :notifo
     when /\Amailto|@+/ then :email
     end
   end
@@ -48,7 +47,6 @@ module Messenger
     when :http then     Messenger::Web
     when :campfire then Messenger::Campfire
     when :jabber then   Messenger::Jabber
-    when :notifo then   Messenger::Notifo
     else
       raise Messenger::ProtocolError, "Malformed service URL: #{url}. Either this syntax is wrong or this service type is not yet implemented."
     end
