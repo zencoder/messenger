@@ -48,4 +48,4 @@ Messenger will also read in ~/.messenger (a YAML file) for default config inform
     jabber_password: ########
 
 
-(c) 2010 Brandon Arbini / Zencoder, Inc.
+(c) 2010 Brightcove, Inc

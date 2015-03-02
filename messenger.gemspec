@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = "messenger"
   s.version     = Messenger::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Brandon Arbini", "Nathan Sutton"]
-  s.email       = "brandon@zencoder.com"
+  s.authors     = ["Brandon Arbini", "Nathan Sutton", "Matthew McClure"]
+  s.email       = "mmcclure@brightcove.com"
   s.homepage    = "http://github.com/zencoder/messenger"
   s.summary     = "Messenger: easy message sending"
   s.description = "Messenger: easy message sending for various protocols."
@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "httparty"
   s.add_dependency "trollop"
   s.add_dependency "addressable"
+  s.add_development_dependency "test-unit"
   s.add_development_dependency "shoulda"
   s.add_development_dependency "mocha"
   s.add_development_dependency "webmock"
