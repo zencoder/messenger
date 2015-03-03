@@ -29,6 +29,20 @@ class Messenger::SlackTest < Test::Unit::TestCase
       assert_equal @success_response, result.response
     end
 
+    should "post a successful message with a custom emoji" do
+      HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', icon_emoji: ':ghost:', text: 'hello world!' }.to_json, :headers => { "Content-Type" => "application/json"}).returns(@success_response)
+      result = Messenger::Slack.deliver("slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room", 'hello world!', { icon_emoji: ':ghost:' })
+      assert result.success?
+      assert_equal @success_response, result.response
+    end
+
+    should "post a successful message with a custom avatar url" do
+      HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', icon_url: 'http://example.com/avatar.png', text: 'hello world!' }.to_json, :headers => { "Content-Type" => "application/json"}).returns(@success_response)
+      result = Messenger::Slack.deliver("slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room", 'hello world!', { icon_url: 'http://example.com/avatar.png' })
+      assert result.success?
+      assert_equal @success_response, result.response
+    end
+
     should "post a failed message" do
       HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', text: 'hello world!' }.to_json, :headers => { "Content-Type" => "application/json"}).returns(@failure_response)
       result = Messenger::Slack.deliver("slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room", 'hello world!')

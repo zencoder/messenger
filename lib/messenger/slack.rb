@@ -37,8 +37,8 @@ private
   def self.build_message(channel, display_name, body, options)
     msg = { channel: channel, username: display_name }
 
-    msg['icon_emoji'] = options['icon_emoji'] if options['icon_emoji']
-    msg['icon_url'] = options['icon_url'] if options['icon_url']
+    msg['icon_emoji'] = options[:icon_emoji] if options[:icon_emoji]
+    msg['icon_url'] = options[:icon_url] if options[:icon_url]
 
     if body.is_a?(String)
       msg.merge!({ text: body })
