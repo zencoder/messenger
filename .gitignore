@@ -6,3 +6,4 @@ doc
 Gemfile.lock
 *.gem
 .rvmrc
+.zenflow-log
