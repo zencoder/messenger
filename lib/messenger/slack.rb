@@ -20,7 +20,7 @@ class Messenger::Slack
     response = HTTParty.post(
       "https://#{parsed_url[:base_url]}/#{parsed_url[:key_one]}/#{parsed_url[:key_two]}/#{parsed_url[:secret]}",
       :headers => { "Content-Type" => "application/json"}.merge(options[:headers]),
-      :body => build_message(parsed_url[:channel], parsed_url[:display_name], body)
+      :body => build_message(parsed_url[:channel], parsed_url[:display_name], body, options)
     )
     Messenger::Result.new(success?(response), response)
   end
@@ -34,8 +34,11 @@ class Messenger::Slack
 
 private
 
-  def self.build_message(channel, display_name, body)
+  def self.build_message(channel, display_name, body, options)
     msg = { channel: channel, username: display_name }
+
+    msg['icon_emoji'] = options['icon_emoji'] if options['icon_emoji']
+    msg['icon_url'] = options['icon_url'] if options['icon_url']
 
     if body.is_a?(String)
       msg.merge!({ text: body })
