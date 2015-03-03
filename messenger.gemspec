@@ -2,11 +2,11 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'messenger/version'
+require 'messenger/version_number'
 
 Gem::Specification.new do |s|
   s.name        = "messenger"
-  s.version     = Messenger::VERSION
+  s.version     = Messenger::VersionNumber.new.to_s
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Brandon Arbini", "Nathan Sutton", "Matthew McClure"]
   s.email       = "mmcclure@brightcove.com"
@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
   s.executables = ["messenger"]
   s.extra_rdoc_files = ["LICENSE", "README.markdown"]
   s.rubyforge_project = "messenger"
-  s.add_dependency "scashin133-xmpp4r-simple",  "~>0.8"
-  s.add_dependency "mail",                      "~>2.6"
-  s.add_dependency "httparty",                  "~>0.13"
-  s.add_dependency "trollop",                   "~>2.1"
-  s.add_dependency "addressable",               "~>2.3"
+  s.add_dependency "scashin133-xmpp4r-simple"
+  s.add_dependency "mail"
+  s.add_dependency "httparty"
+  s.add_dependency "trollop"
+  s.add_dependency "addressable"
   s.add_development_dependency "test-unit", "~>3.0"
   s.add_development_dependency "shoulda",   "~>3.5"
   s.add_development_dependency "mocha",     "~>1.1"
