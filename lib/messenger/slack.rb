@@ -38,13 +38,13 @@ private
   def self.build_message(channel, display_name, body)
     msg = { channel: channel, username: display_name }
 
-    return msg.merge({ text: body }) if body.is_a?(String)
+    if body.is_a?(String)
+      msg.merge!({ text: body })
 
-    if body.is_a?(Array)
+    elsif body.is_a?(Array)
       msg['attachments'] = body
-    end
 
-    if body.is_a?(Hash)
+    elsif body.is_a?(Hash)
       msg['attachments'] = []
       msg['attachments'].push(body)
     end

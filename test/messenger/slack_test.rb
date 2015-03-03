@@ -9,7 +9,7 @@ class Messenger::SlackTest < Test::Unit::TestCase
     end
 
     should "post a successful message as a string" do
-      HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', text: 'hello world!' }, :headers => { "Content-Type" => "application/json"}).returns(@success_response)
+      HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', text: 'hello world!' }.to_json, :headers => { "Content-Type" => "application/json"}).returns(@success_response)
       result = Messenger::Slack.deliver("slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room", 'hello world!')
       assert result.success?
       assert_equal @success_response, result.response
@@ -30,7 +30,7 @@ class Messenger::SlackTest < Test::Unit::TestCase
     end
 
     should "post a failed message" do
-      HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', text: 'hello world!' }, :headers => { "Content-Type" => "application/json"}).returns(@failure_response)
+      HTTParty.expects(:post).with("https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX", :body => { channel: '#room', username: 'displayname', text: 'hello world!' }.to_json, :headers => { "Content-Type" => "application/json"}).returns(@failure_response)
       result = Messenger::Slack.deliver("slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room", 'hello world!')
       assert_equal false, result.success?
       assert_equal @failure_response, result.response
