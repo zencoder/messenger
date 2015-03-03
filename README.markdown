@@ -22,6 +22,15 @@ Web posts are send using the HTTParty gem. The message is sent as the request bo
 
     messenger http://example.com "Message"
 
+
+Campfire
+--------
+
+Campfire messages are sent using the HTTParty gem against the Campfire API.
+
+    messenger campfire://api-key:room-id@subdomain.campfirenow.com "Message"
+
+
 Slack
 ---
 
