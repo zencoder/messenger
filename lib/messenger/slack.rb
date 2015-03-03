@@ -5,8 +5,6 @@ class Messenger::Slack
 
   def self.valid_url?(url)
     !!matcher(url)
-  rescue NoMethodError
-    false
   end
 
   # URL format:
@@ -16,20 +14,21 @@ class Messenger::Slack
   # Attachment reference: https://api.slack.com/docs/attachments
   def self.deliver(url, body, options={})
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
-    display_name, base_url, key_one, key_two, secret, channel = matcher(url)
+    parsed_url = matcher(url)
+
     options[:headers] ||= {}
     response = HTTParty.post(
-      "https://#{base_url}/#{key_one}/#{key_two}/#{secret}",
+      "https://#{parsed_url[:base_url]}/#{parsed_url[:key_one]}/#{parsed_url[:key_two]}/#{parsed_url[:secret]}",
       :headers => { "Content-Type" => "application/json"}.merge(options[:headers]),
-      :body => build_message(channel, display_name, body)
+      :body => build_message(parsed_url[:channel], parsed_url[:display_name], body)
     )
     Messenger::Result.new(success?(response), response)
   end
 
   def self.obfuscate(url)
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
-    display_name, base_url, key_one, key_two, secret, channel = matcher(url)
-    "slack://#{display_name}@#{base_url}/T********/B********/************************/#{channel}"
+    parsed_url = matcher(url)
+    "slack://#{parsed_url[:display_name]}@#{parsed_url[:base_url]}/T********/B********/************************/#{parsed_url[:channel]}"
   end
 
 
@@ -53,7 +52,16 @@ private
   end
 
   def self.matcher(url)
-    url.match(/slack:\/\/(.*)@(hooks.slack.com\/services)\/([T].*?)\/([B].*?)\/(.*)\/([#@].*)/)[1,6]
+    return false unless match = url.match(/slack:\/\/(.*)@(hooks.slack.com\/services)\/([T].*?)\/([B].*?)\/(.*)\/([#@].*)/)
+
+    return {
+      display_name: match[1],
+      base_url: match[2],
+      key_one: match[3],
+      key_two: match[4],
+      secret: match[5],
+      channel: match[6]
+    }
   end
 
   def self.success?(response)
