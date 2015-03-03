@@ -58,4 +58,9 @@ Messenger will also read in ~/.messenger (a YAML file) for default config inform
     jabber_password: ########
 
 
-(c) 2010 Brightcove, Inc
+License
+=======
+
+Messenger is licensed under the MIT License. [View the license file](LICENSE)
+
+Copyright 2015 Brightcove, Inc
