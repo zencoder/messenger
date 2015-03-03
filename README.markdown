@@ -40,6 +40,10 @@ as such. If it's an object or an array of objects, those will be sent as attachm
     messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room "Message"
     messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room { fallback: 'Important notice', color: '#0000ff', text: 'Man this is some super important text' }
 
+You can also specify a custom user image by passing `icon_url` or `icon_emoji` in the options block.
+
+    messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room "Message" { icon_emoji: ':ghost:' }
+
 
 Jabber
 ------
