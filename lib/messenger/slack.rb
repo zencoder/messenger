@@ -54,7 +54,7 @@ private
   def self.matcher(url)
     return false unless match = url.match(/slack:\/\/(.*)@(hooks.slack.com\/services)\/([T].*?)\/([B].*?)\/(.*)\/([#@].*)/)
 
-    return {
+    {
       display_name: match[1],
       base_url: match[2],
       key_one: match[3],
