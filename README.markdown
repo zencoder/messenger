@@ -1,4 +1,4 @@
-Messenger
+Messenger [![Build Status](https://travis-ci.org/zencoder/messenger.svg?branch=production)](https://travis-ci.org/zencoder/messenger)
 =========
 
 Messenger makes it easy to send messages using a variety of services (e.g. email, web, campfire, jabber). It is designed to be used via the command-line or invoked directly with in a Ruby application. One of the guiding principles behind the library is to specify as much as possible through a single URL.
