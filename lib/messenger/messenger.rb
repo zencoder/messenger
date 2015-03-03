@@ -36,9 +36,9 @@ module Messenger
     case url
     when /\Ahttp/ then      :http
     when /\Acampfire/ then  :campfire
+    when /\Aslack/ then     :slack
     when /\Ajabber/ then    :jabber
     when /\Amailto|@+/ then :email
-    when /\Aslack/ then     :slack
     end
   end
 
