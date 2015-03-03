@@ -1,3 +1,3 @@
 module Messenger
-  VERSION = '0.6.0'
+  VERSION = Messenger::VersionNumber.new.to_s
 end
