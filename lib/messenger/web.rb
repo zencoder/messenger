@@ -1,10 +1,12 @@
+require 'addressable/uri'
 require 'httparty'
+require 'cgi'
 
 class Messenger::Web
 
   def self.valid_url?(url)
-    !!URI.parse(url)
-  rescue URI::InvalidURIError
+    !!Addressable::URI.parse(url)
+  rescue Addressable::URI::InvalidURIError
     false
   end
 
@@ -15,17 +17,22 @@ class Messenger::Web
   # The body of the message is posted as the body of the request, not the query.
   def self.deliver(url, body, options={})
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
-    method = options.delete(:method) || :post
-    options = options.merge(:basic_auth => {:username => URI.parse(url).user, :password => URI.parse(url).password}) if URI.parse(url).user && URI.parse(url).password
-    response = HTTParty.send(method, url, options.merge(:body => body))
+    options      = options.dup
+    method       = options.delete(:method) || :post
+    uri          = Addressable::URI.parse(url)
+    user         = CGI.unescape(uri.user) if uri.user
+    password     = CGI.unescape(uri.password) if uri.password
+    options      = options.merge(:basic_auth => {:username => user, :password => password}) if user || password
+    uri.userinfo = nil if user || password
+    response     = HTTParty.send(method, uri.to_s, options.merge(:body => body))
     Messenger::Result.new(success?(response), response)
   end
 
   def self.obfuscate(url)
     raise Messenger::URLError, "The URL provided is invalid" unless valid_url?(url)
-    path = URI.parse(url)
+    path = Addressable::URI.parse(url)
     if path.password
-      url.sub(/#{path.password}/, 'xxxx')
+      url.sub(/#{Regexp.escape(path.password)}/, 'xxxx')
     else
       url
     end

@@ -31,6 +31,20 @@ Campfire messages are sent using the HTTParty gem against the Campfire API.
     messenger campfire://api-key:room-id@subdomain.campfirenow.com "Message"
 
 
+Slack
+---
+
+Slack messages are sent using the HTTParty gem against the [incoming webhooks API](https://api.slack.com/incoming-webhooks). If the message sent is a string, the message will be delivered
+as such. If it's an object or an array of objects, those will be sent as attachments.
+
+    messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room "Message"
+    messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room { fallback: 'Important notice', color: '#0000ff', text: 'Man this is some super important text' }
+
+You can also specify a custom user image by passing `icon_url` or `icon_emoji` in the options block.
+
+    messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room "Message" { icon_emoji: ':ghost:' }
+
+
 Jabber
 ------
 
@@ -48,4 +62,9 @@ Messenger will also read in ~/.messenger (a YAML file) for default config inform
     jabber_password: ########
 
 
-(c) 2010 Brandon Arbini / Zencoder, Inc.
+License
+=======
+
+Messenger is licensed under the MIT License. [View the license file](LICENSE)
+
+Copyright 2015 Brightcove, Inc

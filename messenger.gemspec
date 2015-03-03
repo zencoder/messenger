@@ -2,14 +2,14 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'messenger/version'
+require 'messenger/version_number'
 
 Gem::Specification.new do |s|
   s.name        = "messenger"
-  s.version     = Messenger::VERSION
+  s.version     = Messenger::VersionNumber.new.to_s
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Brandon Arbini", "Nathan Sutton"]
-  s.email       = "brandon@zencoder.com"
+  s.authors     = ["Brandon Arbini", "Nathan Sutton", "Matthew McClure"]
+  s.email       = "mmcclure@brightcove.com"
   s.homepage    = "http://github.com/zencoder/messenger"
   s.summary     = "Messenger: easy message sending"
   s.description = "Messenger: easy message sending for various protocols."
@@ -20,9 +20,13 @@ Gem::Specification.new do |s|
   s.add_dependency "mail"
   s.add_dependency "httparty"
   s.add_dependency "trollop"
-  s.add_development_dependency "shoulda"
-  s.add_development_dependency "mocha"
-  s.add_development_dependency "webmock"
+  s.add_dependency "addressable"
+  s.add_development_dependency "test-unit", "~>3.0"
+  s.add_development_dependency "shoulda",   "~>3.5"
+  s.add_development_dependency "mocha",     "~>1.1"
+  s.add_development_dependency "webmock",   "~>1.20"
+  s.add_development_dependency "rake",      "~>10.4"
+  s.add_development_dependency "rdoc",      "~>4.2"
   s.files        = Dir.glob("lib/**/*") + %w(LICENSE README.markdown Rakefile)
   s.require_path = 'lib'
 end

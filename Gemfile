@@ -1,7 +1,3 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem "SystemTimer"
-gem "xmpp4r-simple"
-gem "mail"
-gem "httparty"
-gem "trollop"
+gemspec
