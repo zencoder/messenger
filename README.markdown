@@ -22,13 +22,19 @@ Web posts are send using the HTTParty gem. The message is sent as the request bo
 
     messenger http://example.com "Message"
 
+Slack
+---
+
+Slack messages are sent using the HTTParty gem against the [incoming webhooks API](https://api.slack.com/incoming-webhooks). If the message sent is a string, the message will be delivered
+as such. If it's an object or an array of objects, those will be sent as attachments.
 
 Campfire
 --------
 
 Campfire messages are sent using the HTTParty gem against the Campfire API.
 
-    messenger campfire://api-key:room-id@subdomain.campfirenow.com "Message"
+    messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room "Message"
+    messenger slack://displayname@hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX/#room { fallback: 'Important notice', color: '#0000ff', text: 'Man this is some super important text' }
 
 
 Jabber
